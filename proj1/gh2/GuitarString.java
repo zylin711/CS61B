@@ -37,7 +37,8 @@ public class GuitarString {
          * double r = Math.random() - 0.5;
          * Make sure that your random numbers are different from each other.
          * This does not mean that you need to check that the numbers are different from each other.
-         * It means you should repeatedly call Math.random() - 0.5 to generate new random numbers for each array index.
+         * It means you should repeatedly call Math.random() - 0.5
+         * to generate new random numbers for each array index.
          */
         for (int i = 0; i < buffer.size(); i++) {
             buffer.removeFirst();
