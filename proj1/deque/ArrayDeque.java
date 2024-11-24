@@ -37,7 +37,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     /**
      * For arrays of length 16 or more,
-     * your usage factor should be at least 25%.
+     * usage factor should be at least 25%.
      */
 
     private void checkAndShrink() {
