@@ -4,8 +4,8 @@ import edu.princeton.cs.algs4.StdDraw;
 
 public class GuitarHero {
 
-    public static String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
-    public static int keyboardLen = keyboard.length();
+    private static String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+    private static int keyboardLen = keyboard.length();
 
     public static void main(String[] args) {
         GuitarString[] guitarStrings = new GuitarString[keyboardLen];
@@ -26,19 +26,21 @@ public class GuitarHero {
                 }
             }
 
-                /* compute the superposition of samples */
-                double sample = 0.0;
-                for (int i = 0; i < keyboardLen; i++) {
-                    sample += guitarStrings[i].sample();
-                }
 
-                /* play the sample on standard audio */
-                StdAudio.play(sample);
+            /* compute the superposition of samples */
+            double sample = 0.0;
+            for (int i = 0; i < keyboardLen; i++) {
+                sample += guitarStrings[i].sample();
+            }
 
-                /* advance the simulation of each guitar string by one step */
-                for (int i = 0; i < keyboardLen; i++) {
-                    guitarStrings[i].tic();
-                }
+            /* play the sample on standard audio */
+            StdAudio.play(sample);
+
+            /* advance the simulation of each guitar string by one step */
+            for (int i = 0; i < keyboardLen; i++) {
+                guitarStrings[i].tic();
             }
         }
+    }
 }
+

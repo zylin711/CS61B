@@ -1,7 +1,7 @@
 package deque;
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
     private int nextFirst;
@@ -36,8 +36,18 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     /**
+     * The amount of memory that your program uses at any given time must be proportional to the number of items.
+     * For arrays of length 16 or more, your usage factor should always be at least 25%.
+     */
+
+    private void checkAndShrink() {
+        if (items.length > 16 && size < items.length / 4) {
+            resize(items.length / 2);
+        }
+    }
+
+    /**
      * Adds an item of type T to the front of the deque.
-     *
      * @param item: the item to be added in the array.
      */
     @Override
@@ -56,7 +66,6 @@ public class ArrayDeque<T> implements Deque<T> {
 
     /**
      * Adds an item of type T to the back of the deque.
-     *
      * @param item: the item to be added in the array.
      */
     @Override
@@ -106,6 +115,7 @@ public class ArrayDeque<T> implements Deque<T> {
         T firstItem = items[nextFirst];
         items[nextFirst] = null;
         size -= 1;
+        checkAndShrink();
         return firstItem;
     }
 
@@ -126,6 +136,7 @@ public class ArrayDeque<T> implements Deque<T> {
         T lastItem = items[nextLast];
         items[nextLast] = null;
         size -= 1;
+        checkAndShrink();
         return lastItem;
     }
 
@@ -187,42 +198,26 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-        /**
-         * Returns whether or not the parameter o is equal to the Deque.
-         */
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null || !(obj instanceof Deque)) {
-                return false;
-            }
-            Deque<T> other = (Deque<T>) obj;
-            if (this.size() != other.size()) {
-                return false;
-            }
-            for (int i = 0; i < size; i++) {
-                if (!(this.get(i).equals(other.get(i)))) {
-                    return false;
-                }
-            }
+    /**
+     * Returns whether or not the parameter o is equal to the Deque.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-
-        public static void main(String[] args) {
-            ArrayDeque<String> deque = new ArrayDeque<>();
-
-            deque.addFirst("b");
-            deque.addFirst("a");
-            deque.addLast("c");
-            deque.addLast("d");
-            deque.addLast("e");
-            deque.addLast("f");
-            deque.addLast("g");
-            deque.addLast("h");
-            deque.addLast("i");
-
-            deque.printDeque();
-            System.out.println(deque.get(3));
+        if (obj == null || !(obj instanceof Deque)) {
+            return false;
         }
+        Deque<T> other = (Deque<T>) obj;
+        if (this.size() != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            if (!(this.get(i).equals(other.get(i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

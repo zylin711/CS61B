@@ -2,13 +2,13 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T>{
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class Node {
         T item;
         Node prev;
         Node next;
 
-        public Node(T item, Node prev, Node next) {
+        Node(T item, Node prev, Node next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
@@ -51,11 +51,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         sentinel.prev = newItem;
         size += 1;
     }
-    /** Returns true if deque is empty, false otherwise.
-    */
-    public boolean isEmpty() {
-        return size == 0;
-    }
+
 
     /** Removes and returns the item at the front of the deque.
      * If no such item exists, returns null.
@@ -124,7 +120,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         return getRecursiveHelper(sentinel.next, index);
     }
 
-    public T getRecursiveHelper(Node node, int index) {
+    private T getRecursiveHelper(Node node, int index) {
         if (index == 0) {
             return node.item;
         }
@@ -173,6 +169,7 @@ public class LinkedListDeque<T> implements Deque<T>{
     /**
      * Returns whether or not the parameter o is equal to the Deque.
      */
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -190,15 +187,5 @@ public class LinkedListDeque<T> implements Deque<T>{
             }
         }
         return true;
-    }
-
-
-    public static void main(String[] args) {
-        LinkedListDeque<Integer> L = new LinkedListDeque<>();
-        L.addFirst(15);
-        L.addFirst(10);
-        L.addLast(20);
-        System.out.println(L.get(1));
-        //L.printDeque();
     }
 }
