@@ -36,8 +36,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     /**
-     * The amount of memory that your program uses at any given time must be proportional to the number of items.
-     * For arrays of length 16 or more, your usage factor should always be at least 25%.
+     * For arrays of length 16 or more,
+     * your usage factor should be at least 25%.
      */
 
     private void checkAndShrink() {
@@ -80,14 +80,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             nextLast += 1;
         }
         size += 1;
-    }
-
-    /**
-     * Returns true if deque is empty, false otherwise.
-     */
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     /**
