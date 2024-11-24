@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.Iterator;
+
 public class LinkedListDeque<T> implements Deque<T>{
     private class Node {
         T item;
@@ -143,6 +145,54 @@ public class LinkedListDeque<T> implements Deque<T>{
         System.out.println();
     }
 
+    /**
+     * Returns an iterator for the deque.
+     */
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<T> {
+        private int index;
+
+        LinkedListIterator() {
+            index = 0;
+        }
+
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        public T next() {
+            T item = get(index);
+            index += 1;
+            return item;
+        }
+    }
+
+    /**
+     * Returns whether or not the parameter o is equal to the Deque.
+     */
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof Deque)) {
+            return false;
+        }
+        Deque<T> other = (Deque<T>) obj;
+        if (this.size() != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            if (!(this.get(i).equals(other.get(i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public static void main(String[] args) {
         LinkedListDeque<Integer> L = new LinkedListDeque<>();
         L.addFirst(15);
@@ -151,6 +201,4 @@ public class LinkedListDeque<T> implements Deque<T>{
         System.out.println(L.get(1));
         //L.printDeque();
     }
-
-
 }
