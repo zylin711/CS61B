@@ -19,7 +19,7 @@ public class CapersRepository {
     static final File CWD = new File(System.getProperty("user.dir"));
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = join(CWD,".capers");
+    static final File CAPERS_FOLDER = Utils.join(CWD,".capers");
 
     /**
      * Does required filesystem operations to allow for persistence.
@@ -41,14 +41,16 @@ public class CapersRepository {
      * @param text String of the text to be appended to the story
      */
     public static void writeStory(String text) {
-        File story = join(CAPERS_FOLDER, "story");
+        File story = Utils.join(CAPERS_FOLDER, "story");
         if (!story.exists()) {
-            writeContents(story, "");
+            writeContents(story, text);
+            System.out.println(text);
+        } else {
+            String initialStory = readContentsAsString(story);
+            String updateStory = initialStory + "\n" + text;
+            writeContents(story, updateStory);
+            System.out.println(updateStory);
         }
-        String initialStory = readContentsAsString(story);
-        String updateStory = initialStory + "\n" + text;
-        writeContents(story, updateStory);
-        System.out.println(updateStory);
     }
 
     /**
